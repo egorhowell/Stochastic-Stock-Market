@@ -1,4 +1,5 @@
 PROGRAM gbm
+
 	IMPLICIT NONE
 	
 	INTEGER, PARAMETER :: period=100000, m=2000
@@ -10,21 +11,21 @@ PROGRAM gbm
 	REAL, EXTERNAL :: ran_gauss
 	DOUBLE PRECISION :: share_price(period)
 
-    !setting parameters
+    	!setting parameters
 	vola = 0.095
 	drift = 0.003
 	mean = 0.0
 	stdev = 1.0
 	f_kelly = drift/vola**2
-    start_price = 300.0
+   	start_price = 300.0
 	first=0
 	iseed=99455
 
-    !loop for stochastic vola
+    	!loop for stochastic vola
 	DO i = 1,period
 	    vary_vola(i) = 0.075 * (ran_gauss(iseed,first,mean,stdev))
 	    vary_drift(i) = 0.003 * (ran_gauss(iseed,first,mean,stdev))
-    END DO
+    	END DO
 
 	!loop for random share prices over a certain period
 	DO i = 1, period
@@ -42,7 +43,7 @@ PROGRAM gbm
 
 	!loop for the cumulative distribution function
 	CALL Bubble_sort(share_price,period)
-    median = share_price(period/2)
+    	median = share_price(period/2)
 
 	OPEN(19,file='cdf.dat')
 
@@ -53,7 +54,7 @@ PROGRAM gbm
 	!Kelly Criterion
 	OPEN(17,file='kelly2.dat')
 
-    DO t= 1,m
+    	DO t= 1,m
 
 		f(t) = real(t)/real(m)
 		x = f(t)
@@ -72,17 +73,18 @@ PROGRAM gbm
                 start_money(i) = new_money(i)
                 kelly(i) = money(i)/100000.0
 
-			END DO
+	    		END DO
 
 			please = kelly(1)
 
-            !loop for geometric mean
+            		!loop for geometric mean
 			DO i = 1,(period)
 			    please = kelly(i)*please
 			END DO
 			gmean(t) = please**(1.0/(period)) - 1.0
 	END DO
 
+	! write to screen
 	DO t = 1,m
 		WRITE(17,*) f(t), gmean(t)
 	END DO
@@ -90,7 +92,7 @@ PROGRAM gbm
 END PROGRAM
 
 
-!random gaussian number
+! random gaussian number generator
 real function ran_gauss(iseed,first,mean,stdev)
 
   implicit none
@@ -107,6 +109,7 @@ real function ran_gauss(iseed,first,mean,stdev)
   ran_gauss=v2*fac * stdev + mean
 end function ran_gauss
 
+! random number generator
 real function rand(iseed,first)
 
   implicit none
@@ -134,7 +137,7 @@ real function rand(iseed,first)
 
 end function rand
 
-!bubble sort algorithm
+!bubble sort algorithm subroutine
 subroutine Bubble_Sort(a,nit)
   
   double precision :: a(nit)
