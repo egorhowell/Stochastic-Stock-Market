@@ -1,4 +1,4 @@
-# Geometric Brownian Motion Simulation of the Stock Market
+# Geometric Brownian Motion for the Stock Market
 This is the code for my second year project where I simulated the stock market using geometric brownian motiom which a subset of the Black Scholes Model.
 
 This project included modelling:
