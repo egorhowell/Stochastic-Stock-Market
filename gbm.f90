@@ -157,36 +157,3 @@ subroutine Bubble_Sort(a,nit)
     if (.not. swapped) exit
   enddo
 end subroutine Bubble_Sort
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
